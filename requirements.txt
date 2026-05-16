@@ -4,3 +4,4 @@ python-dotenv>=1.0.0
 aiohttp
 flask
 asyncio
+discord.py
