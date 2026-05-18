@@ -9,7 +9,7 @@ async def check_ban(uid: str) -> dict | None:
 
     api_url = f"http://raw.thug4ff.xyz/check_ban/{uid}/great"
 
-    timeout = aiohttp.ClientTimeout(total=10)
+    timeout = aiohttp.ClientTimeout(total=30)
 
     try:
 
