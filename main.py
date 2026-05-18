@@ -95,6 +95,15 @@ async def on_ready():
 
     print(f"Logged in as {bot.user}")
 
+    try:
+
+        synced = await bot.tree.sync()
+
+        print(f"Synced {len(synced)} commands")
+
+    except Exception as e:
+
+        print(e)
 # =========================
 # LANGUAGE COMMAND
 # =========================
@@ -253,7 +262,7 @@ def is_trap_channel(guild_id, channel_id):
 # SET TRAP CHANNEL
 # =========================
 
-@bot.command(name="settrap")
+@bot.hybrid_command(name="settrap")
 @commands.has_permissions(administrator=True)
 async def set_trap(ctx, channel: discord.TextChannel):
 
@@ -291,7 +300,7 @@ async def set_trap(ctx, channel: discord.TextChannel):
 # REMOVE TRAP CHANNEL
 # =========================
 
-@bot.command(name="removetrap")
+@bot.hybrid_command(name="removetrap")
 @commands.has_permissions(administrator=True)
 async def remove_trap(ctx, channel: discord.TextChannel):
 
