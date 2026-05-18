@@ -1,8 +1,3 @@
-# Combined Discord Bot (Trap Channel + Free Fire Ban Check)
-
-## main.py
-
-```python
 import discord
 import os
 import json
