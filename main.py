@@ -54,8 +54,8 @@ async def change_language(ctx, lang_code: str):
     message = "✅ Language set to English." if lang_code == 'en' else "✅ Langue définie sur le français."
     await ctx.send(f"{ctx.author.mention} {message}")
 
-@bot.command(name="check")
-async def check(ctx):
+@bot.command(name="ID")
+async def check_ban_command(ctx):
     content = ctx.message.content
     user_id = content[3:].strip()
     lang = user_languages.get(ctx.author.id, "en")
@@ -64,8 +64,8 @@ async def check(ctx):
 
     if not user_id.isdigit():
         message = {
-            "en": f"{ctx.author.mention} ❌ **Invalid UID!**\n➡️ Please use: `!check 123456789`",
-            "fr": f"{ctx.author.mention} ❌ **UID invalide !**\n➡️ Veuillez fournir un UID valide sous la forme : `!check 123456789`"
+            "en": f"{ctx.author.mention} ❌ **Invalid UID!**\n➡️ Please use: `!ID 123456789`",
+            "fr": f"{ctx.author.mention} ❌ **UID invalide !**\n➡️ Veuillez fournir un UID valide sous la forme : `!ID 123456789`"
         }
         await ctx.send(message[lang])
         return
@@ -128,7 +128,7 @@ async def check(ctx):
             embed.set_image(url="attachment://notbanned.gif")
 
         embed.set_thumbnail(url=ctx.author.avatar.url if ctx.author.avatar else ctx.author.default_avatar.url)
-        embed.set_footer(text="DEVELOPED BY THUG•")
+        embed.set_footer(text="DEVELOPED BY DIBOXE LEGIT•")
         await ctx.send(f"{ctx.author.mention}", embed=embed ,file=file)
 
 bot.run(TOKEN)
