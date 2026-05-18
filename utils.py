@@ -7,7 +7,7 @@ load_dotenv()
 
 async def check_ban(uid: str) -> dict | None:
 
-    api_url = f"http://raw.thug4ff.xyz/check_ban/{uid}/great"
+    api_url = f"http://np2.npcloud.online:2053/check?uid={uid}"
 
     timeout = aiohttp.ClientTimeout(total=30)
 
