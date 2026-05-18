@@ -72,7 +72,7 @@ async def check_ban_command(ctx):
 
     async with ctx.typing():
         try:
-            ban_status = await check_ban(user_id)
+            ban_status = await check_ban(user)
         except Exception as e:
             await ctx.send(f"{ctx.author.mention} ⚠️ Error:\n```{str(e)}```")
             return
