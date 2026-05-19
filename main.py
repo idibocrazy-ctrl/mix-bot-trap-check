@@ -216,7 +216,7 @@ async def check(ctx, uid: str):
 
         if is_banned:
 
-            embed.title = "**▌ Banned Account 🛑 **" if lang == "en" else "**▌ Compte banni 🛑 **"
+            embed.title = "**🔴 Banned Account ! **" if lang == "en" else "**🔴 Compte banni ! **"
             embed.description = (
                 f"**• {'Reason' if lang == 'en' else 'Raison'} :** "
                 f"{'This account was confirmed for using cheats.' if lang == 'en' else 'Ce compte a été confirmé comme utilisant des hacks.'}\n"
@@ -229,7 +229,7 @@ async def check(ctx, uid: str):
             file = discord.File("assets/banned.gif", filename="banned.gif")
             embed.set_image(url="attachment://banned.gif")
         else:
-            embed.title = "**▌ Clean Account ✅ **" if lang == "en" else "**▌ Compte non banni ✅ **"
+            embed.title = "** 🟢 Clean Account  **" if lang == "en" else "** 🟢 Compte non banni  **"
             embed.description = (
                 f"**• {'Status' if lang == 'en' else 'Statut'} :** "
                 f"{'No sufficient evidence of cheat usage on this account.' if lang == 'en' else 'Aucune preuve suffisante pour confirmer l’utilisation de hacks sur ce compte.'}\n"
