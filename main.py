@@ -181,12 +181,10 @@ async def check(ctx, uid: str):
     lang = user_languages.get(ctx.author.id, "en")
 
     if not uid.isdigit():
-
         await ctx.send(
             f"{ctx.author.mention} ❌ Invalid UID!\n"
             f"➡️ Use: `!check 123456789`"
         )
-
         return
 
     async with ctx.typing():
@@ -194,53 +192,87 @@ async def check(ctx, uid: str):
         ban_status = await check_ban(uid)
 
         if ban_status is None:
-
             await ctx.send(
                 f"{ctx.author.mention} ❌ Could not get information."
             )
-
             return
 
         is_banned = int(ban_status.get("is_banned", 0))
         nickname = ban_status.get("nickname", "N/A")
         period = ban_status.get("period", "N/A")
         region = ban_status.get("region", "N/A")
-        
+
         embed = discord.Embed(
             color=0xFF0000 if is_banned else 0x00FF00
         )
 
         if is_banned:
 
-            embed.title = "**🔴 Banned Account ! **" if lang == "en" else "**🔴 Compte banni ! **"
+            embed.title = (
+                "🔴 Banned Account!"
+                if lang == "en"
+                else "🔴 Compte banni!"
+            )
+
             embed.description = (
-                f"**• {'Reason' if lang == 'en' else 'Raison'} :** "
+                f"**• {'Reason' if lang == 'en' else 'Raison'}:** "
                 f"{'This account was confirmed for using cheats.' if lang == 'en' else 'Ce compte a été confirmé comme utilisant des hacks.'}\n"
-                f"**• {'Suspension duration' if lang == 'en' else 'Durée de la suspension'} :** {period_str}\n"
-                f"**• {'Nickname' if lang == 'en' else 'Pseudo'} :** `{nickname}`\n"
-                f"** {'Player ID' if lang == 'en' else 'ID du joueur'} :** {ctx.author.id}\n"
-                f"**• {'Region' if lang == 'en' else 'Région'} :** `{region}`"
+
+                f"**• {'Suspension duration' if lang == 'en' else 'Durée de la suspension'}:** `{period}`\n"
+
+                f"**• {'Nickname' if lang == 'en' else 'Pseudo'}:** `{nickname}`\n"
+
+                f"**• {'Player ID' if lang == 'en' else 'ID du joueur'}:** `{uid}`\n"
+
+                f"**• {'Region' if lang == 'en' else 'Région'}:** `{region}`"
             )
-            # embed.set_image(url="https://i.ibb.co/wFxTy8TZ/banned.gif")
-            file = discord.File("assets/banned.gif", filename="banned.gif")
+
+            file = discord.File(
+                "assets/banned.gif",
+                filename="banned.gif"
+            )
             embed.set_image(url="attachment://banned.gif")
+
         else:
-            embed.title = "** 🟢 Clean Account  **" if lang == "en" else "** 🟢 Compte non banni  **"
-            embed.description = (
-                f"**• {'Status' if lang == 'en' else 'Statut'} :** "
-                f"{'No sufficient evidence of cheat usage on this account.' if lang == 'en' else 'Aucune preuve suffisante pour confirmer l’utilisation de hacks sur ce compte.'}\n"
-                f"**• {'Nickname' if lang == 'en' else 'Pseudo'} :** `{nickname}`\n"
-                f"** {'Player ID' if lang == 'en' else 'ID du joueur'} :** {ctx.author.id}\n"
-                f"**• {'Region' if lang == 'en' else 'Région'} :** `{region}`"
+
+            embed.title = (
+                "🟢 Clean Account"
+                if lang == "en"
+                else "🟢 Compte non banni"
             )
-            # embed.set_image(url="https://i.ibb.co/Kx1RYVKZ/notbanned.gif")
-            file = discord.File("assets/notbanned.gif", filename="notbanned.gif")
+
+            embed.description = (
+                f"**• {'Status' if lang == 'en' else 'Statut'}:** "
+                f"{'No sufficient evidence of cheat usage on this account.' if lang == 'en' else 'Aucune preuve suffisante pour confirmer l’utilisation de hacks sur ce compte.'}\n"
+
+                f"**• {'Nickname' if lang == 'en' else 'Pseudo'}:** `{nickname}`\n"
+
+                f"**• {'Player ID' if lang == 'en' else 'ID du joueur'}:** `{uid}`\n"
+
+                f"**• {'Region' if lang == 'en' else 'Région'}:** `{region}`"
+            )
+
+            file = discord.File(
+                "assets/notbanned.gif",
+                filename="notbanned.gif"
+            )
             embed.set_image(url="attachment://notbanned.gif")
 
-        embed.set_thumbnail(url=ctx.author.avatar.url if ctx.author.avatar else ctx.author.default_avatar.url)
-        embed.set_footer(text="DEVELOPED BY DIBOXE LEGIT•")
-        await ctx.send(f"{ctx.author.mention}", embed=embed ,file=file)
+        embed.set_thumbnail(
+            url=ctx.author.avatar.url
+            if ctx.author.avatar
+            else ctx.author.default_avatar.url
+        )
 
+        embed.set_footer(
+            text="DEVELOPED BY DIBOXE LEGIT •"
+        )
+
+        await ctx.send(
+            ctx.author.mention,
+            embed=embed,
+            file=file
+        )
 # =========================
 # TRAP CHANNEL FUNCTIONS
 # =========================
