@@ -136,13 +136,11 @@ async def change_language(ctx, lang_code: str):
 # =========================
 
 async def check_ban(uid: str):
-
-   api_url = f"http://raw.thug4ff.xyz/check_ban/{uid}/great"
+    api_url = f"http://raw.thug4ff.xyz/check_ban/{uid}/great"
 
     timeout = aiohttp.ClientTimeout(total=20)
 
     try:
-
         async with aiohttp.ClientSession(
             timeout=timeout
         ) as session:
