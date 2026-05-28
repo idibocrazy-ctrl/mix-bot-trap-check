@@ -283,7 +283,7 @@ async def check(ctx, uid: str):
 
         if is_banned:
 
-            embed.title = "🔴 Permanently Banned mf !"
+            embed.title = "🔴 Banned  !"
 
             embed.description = (
                 f"┃ **Reason:** "
@@ -293,7 +293,7 @@ async def check(ctx, uid: str):
 
                 f"┃ **Player UID:** `{uid}`\n"
 
-                f"┃ **Ban Start:** {period}\n"
+                f"┃ **Ban Type:** {period}\n"
 
                 f"┃ **Region:** 🌐 {region}"
             )
