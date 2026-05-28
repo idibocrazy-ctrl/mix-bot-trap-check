@@ -190,7 +190,7 @@ async def check_ban(uid: str):
                         "is_banned": data.get("is_banned", 0),
                         "nickname": data.get("nickname", "N/A"),
                         "period": data.get("period", "N/A"),
-                        "region": data.get("region", "N/A")
+                        "region": data.get("region", "N/A"),
                         "last_login": data.get("last_login", "Unknown")
                     }
 
