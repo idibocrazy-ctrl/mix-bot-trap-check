@@ -267,7 +267,19 @@ async def check(ctx, uid: str):
         period = ban_status.get("period", "Unknown")
         region = ban_status.get("region", "Unknown")
         last_login = ban_status.get("last_login", "Unknown")
+        
+        # Ban type converter
+        ban_types = {
+            "1": "1 Day",
+            "3": "Permanent",
+            "7": "7 Days",
+            "30": "30 Days"
+        }
 
+        ban_type = ban_types.get(
+            str(period),
+            str(period)
+         )
         embed = discord.Embed(
             color=0xFF0000 if is_banned else 0x00FF00
         )
@@ -293,7 +305,7 @@ async def check(ctx, uid: str):
 
                 f"┃ **Player UID:** `{uid}`\n"
 
-                f"┃ **Ban Type:** {period}\n"
+                f"┃ **Ban Type:** {ban_type}\n"
 
                 f"┃ **Region:** 🌐 {region}"
             )
