@@ -136,41 +136,87 @@ async def change_language(ctx, lang_code: str):
 # =========================
 
 async def check_ban(uid: str):
+
     api_url = f"http://raw.thug4ff.xyz/check_ban/{uid}/great"
 
     timeout = aiohttp.ClientTimeout(total=20)
 
     try:
+        connector = aiohttp.TCPConnector(ssl=False)
+
         async with aiohttp.ClientSession(
-            timeout=timeout
+            timeout=timeout,
+            connector=connector
         ) as session:
 
             async with session.get(api_url) as response:
 
-                response.raise_for_status()
+                print("STATUS:", response.status)
+                print("URL:", api_url)
 
-                response_data = await response.json()
+                # Get raw text first
+                raw_text = await response.text()
 
+                print("RAW RESPONSE:", raw_text)
+
+                # Check HTTP status
+                if response.status != 200:
+                    return {
+                        "error": f"HTTP {response.status}"
+                    }
+
+                # Convert to JSON safely
+                try:
+                    response_data = await response.json()
+
+                except Exception:
+                    return {
+                        "error": "Invalid JSON response"
+                    }
+
+                print("JSON:", response_data)
+
+                # API success check
                 if response_data.get("status") == 200:
 
                     data = response_data.get("data")
 
-                    if data:
-
+                    if not data:
                         return {
-                            "is_banned": data.get("is_banned", 0),
-                            "nickname": data.get("nickname", "N/A"),
-                            "period": data.get("period", "N/A"),
-                            "region": data.get("region", "N/A")
+                            "error": "No data found"
                         }
 
-                return None
+                    return {
+                        "is_banned": data.get("is_banned", 0),
+                        "nickname": data.get("nickname", "N/A"),
+                        "period": data.get("period", "N/A"),
+                        "region": data.get("region", "N/A")
+                    }
+
+                return {
+                    "error": response_data.get(
+                        "message",
+                        "Unknown API error"
+                    )
+                }
+
+    except asyncio.TimeoutError:
+
+        return {
+            "error": "Request timeout"
+        }
+
+    except aiohttp.ClientError as e:
+
+        return {
+            "error": f"Client error: {str(e)}"
+        }
 
     except Exception as e:
 
-        print(f"API Error: {e}")
-        return None
-
+        return {
+            "error": str(e)
+        }
 # =========================
 # CHECK COMMAND
 # =========================
