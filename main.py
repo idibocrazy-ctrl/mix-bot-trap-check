@@ -191,6 +191,7 @@ async def check_ban(uid: str):
                         "nickname": data.get("nickname", "N/A"),
                         "period": data.get("period", "N/A"),
                         "region": data.get("region", "N/A")
+                        "last_login": data.get("last_login", "Unknown")
                     }
 
                 return {
@@ -247,7 +248,7 @@ async def check(ctx, uid: str):
         nickname = ban_status.get("nickname", "N/A")
         period = ban_status.get("period", "Unknown")
         region = ban_status.get("region", "Unknown")
-        last_login = ban_status.get("last_login", period)
+        last_login = ban_status.get("last_login", "Unknown")
 
         embed = discord.Embed(
             color=0xFF0000 if is_banned else 0x00FF00
