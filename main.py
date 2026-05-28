@@ -142,6 +142,7 @@ async def check_ban(uid: str):
     timeout = aiohttp.ClientTimeout(total=20)
 
     try:
+
         connector = aiohttp.TCPConnector(ssl=False)
 
         async with aiohttp.ClientSession(
@@ -177,35 +178,39 @@ async def check_ban(uid: str):
                 print("JSON:", response_data)
 
                 # API success check
-if response_data.get("status") == 200:
+                if response_data.get("status") == 200:
 
-    data = response_data.get("data")
+                    data = response_data.get("data")
 
-    if not data:
-        return {
-            "error": "No data found"
-        }
+                    if not data:
+                        return {
+                            "error": "No data found"
+                        }
 
-    from datetime import datetime
+                    from datetime import datetime
 
-    timestamp = data.get("last_login", 0)
+                    timestamp = data.get("last_login", 0)
 
-    if str(timestamp).isdigit() and int(timestamp) > 0:
+                    if (
+                        str(timestamp).isdigit()
+                        and int(timestamp) > 0
+                    ):
 
-        last_login = datetime.fromtimestamp(
-            int(timestamp)
-        ).strftime("%d %b %Y %I:%M %p")
+                        last_login = datetime.fromtimestamp(
+                            int(timestamp)
+                        ).strftime("%d %b %Y %I:%M %p")
 
-    else:
-        last_login = "Unknown"
+                    else:
 
-    return {
-        "is_banned": data.get("is_banned", 0),
-        "nickname": data.get("nickname", "N/A"),
-        "period": data.get("period", "N/A"),
-        "region": data.get("region", "N/A"),
-        "last_login": last_login
-    }
+                        last_login = "Unknown"
+
+                    return {
+                        "is_banned": data.get("is_banned", 0),
+                        "nickname": data.get("nickname", "N/A"),
+                        "period": data.get("period", "N/A"),
+                        "region": data.get("region", "N/A"),
+                        "last_login": last_login
+                    }
 
                 return {
                     "error": response_data.get(
